@@ -4,8 +4,8 @@ import (
 	"testing"
 	"fmt"
 	"google.golang.org/grpc"
-	"golang_practice/core"
 	"golang.org/x/net/context"
+	"golang_practice/core/auth"
 )
 
 func TestAuthClient(t *testing.T) {

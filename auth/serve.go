@@ -6,8 +6,7 @@ import (
 	"net"
 	"fmt"
 	"google.golang.org/grpc"
-	"time"
-	"github.com/golang/protobuf/ptypes"
+
 )
 
 type AuthServer struct {
@@ -23,17 +22,25 @@ func NewAuthServer() (s *AuthServer, err error) {
 }
 
 func (a *AuthServer) Register(ctx context.Context, request *core_auth.RegisterReq) (account *core_auth.Account, err error) {
-	createAt, err := ptypes.TimestampProto(time.Now())
 	if err != nil {
 		return
 	}
 
+	user  := core_auth.Account{
+		Username:  "111",
+		Password:  "222",
+	}
 
+
+
+
+	aaa, err := a.db.db.Insert(&user)
+	fmt.Println(aaa, "aaa")
+	fmt.Println(err, "err")
 
 	account = &core_auth.Account{
 		Username:  "cc",
 		Password:  "ccc",
-		CreatedAt: createAt,
 	}
 
 	return
