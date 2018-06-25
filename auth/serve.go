@@ -10,24 +10,22 @@ import (
 	"github.com/golang/protobuf/ptypes"
 )
 
-type AuthServer struct {
+type Server struct {
 	db        DBModel
 	authModel AuthModel
 }
 
-func (a *AuthServer) Register(ctx context.Context, request *core_auth.RegisterReq) (account *core_auth.Account, err error) {
+func (a *Server) Register(ctx context.Context, request *core_auth.RegisterReq) (account *core_auth.Account, err error) {
 	createAt, err := ptypes.TimestampProto(time.Now())
 	if err != nil {
 		return
 	}
 
 	account = &core_auth.Account{
-		Id:        "1",
 		Username:  "cc",
 		Password:  "ccc",
 		CreatedAt: createAt,
 	}
-	err = nil
 
 	return
 
@@ -42,7 +40,7 @@ func Run() {
 	}
 	s := grpc.NewServer()
 
-	core_auth.RegisterAuthServiceServer(s, &AuthServer{})
+	core_auth.RegisterAuthServiceServer(s, &Server{})
 
 	s.Serve(lis)
 
