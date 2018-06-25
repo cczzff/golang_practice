@@ -18,7 +18,7 @@ type AuthServer struct {
 func NewAuthServer() (s *AuthServer, err error) {
 	s = &AuthServer{}
 	s.authModel = AuthModel{}
-	s.db, err = NewDBModel("mysql", "root:123456@localhost:3306/gm3?charset=utf8")
+	s.db, err = NewDBModel("mysql", "root:123456@(localhost:3306)/gm3?charset=utf8")
 	return
 }
 
@@ -27,6 +27,8 @@ func (a *AuthServer) Register(ctx context.Context, request *core_auth.RegisterRe
 	if err != nil {
 		return
 	}
+
+
 
 	account = &core_auth.Account{
 		Username:  "cc",
