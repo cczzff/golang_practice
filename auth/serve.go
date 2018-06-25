@@ -27,15 +27,12 @@ func (a *AuthServer) Register(ctx context.Context, request *core_auth.RegisterRe
 	}
 
 	user  := core_auth.Account{
-		Username:  "111",
-		Password:  "222",
+		Username:  "2333",
+		Password:  "666",
 	}
 
-
-
-
-	aaa, err := a.db.db.Insert(&user)
-	fmt.Println(aaa, "aaa")
+	userInfo, err := a.db.db.Insert(&user)
+	fmt.Println(userInfo, "aaa")
 	fmt.Println(err, "err")
 
 	account = &core_auth.Account{
