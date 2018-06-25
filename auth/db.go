@@ -2,6 +2,8 @@ package auth
 
 import (
 	"github.com/go-xorm/xorm"
+	_ "github.com/go-sql-driver/mysql"
+
 )
 
 type (

@@ -36,9 +36,9 @@ const _ = proto.ProtoPackageIsVersion2 // please upgrade the proto package
 
 type Account struct {
 	Id        string                     `protobuf:"bytes,1,opt,name=id" json:"id,omitempty"`
-	Username  string                     `protobuf:"bytes,2,opt,name=username" json:"username,omitempty"`
-	Password  string                     `protobuf:"bytes,3,opt,name=password" json:"password,omitempty"`
-	CreatedAt *google_protobuf.Timestamp `protobuf:"bytes,4,opt,name=created_at,json=createdAt" json:"created_at,omitempty"`
+	Username  string                     `protobuf:"bytes,2,opt,name=username" json:"username,omitempty" xorm:"varchar(100)"`
+	Password  string                     `protobuf:"bytes,3,opt,name=password" json:"password,omitempty" xorm:"varchar(100)"`
+	CreatedAt *google_protobuf.Timestamp `protobuf:"bytes,4,opt,name=created_at,json=createdAt" json:"created_at,omitempty" xorm:"TIMESTAMP"`
 }
 
 func (m *Account) Reset()                    { *m = Account{} }
