@@ -29,7 +29,7 @@ func (s *AuthServer) Register(ctx context.Context, request *core_auth.RegisterRe
 func Run() {
 
 	//起服务
-	lis, err := net.Listen("tcp", ":"+"8088")
+	lis, err := net.Listen("tcp", ":"+"8209")
 	if err != nil {
 		fmt.Println("listen to tcp error", err)
 	}

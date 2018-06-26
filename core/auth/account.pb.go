@@ -42,7 +42,7 @@ const _ = proto.GoGoProtoPackageIsVersion2 // please upgrade the proto package
 
 type Account struct {
 	Id        int64      `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
-	Username  string     `protobuf:"bytes,2,opt,name=username,proto3" json:"username,omitempty"`
+	Username  string     `protobuf:"bytes,2,opt,name=username,proto3" json:"username,omitempty" xorm:"unique"`
 	Password  string     `protobuf:"bytes,3,opt,name=password,proto3" json:"password,omitempty"`
 	CreatedAt *time.Time `protobuf:"bytes,4,opt,name=created_at,json=createdAt,stdtime" json:"created_at,omitempty" xorm:"created"`
 }

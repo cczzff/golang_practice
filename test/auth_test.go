@@ -9,7 +9,7 @@ import (
 )
 
 func TestAuthClient(t *testing.T) {
-	conn, err := grpc.Dial("localhost:8088", grpc.WithInsecure())
+	conn, err := grpc.Dial("localhost:8209", grpc.WithInsecure())
 	if err != nil {
 		fmt.Println("Dial error: ", err)
 		return

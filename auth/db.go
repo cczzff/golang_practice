@@ -5,6 +5,7 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 	"golang_practice/core/auth"
 	"errors"
+	"github.com/satori/go.uuid"
 )
 
 type (
@@ -12,6 +13,12 @@ type (
 		db *xorm.Engine
 	}
 )
+
+type authToken struct {
+	Id     int64
+	UserId int64 `xorm:"unique"`
+	Token  string
+}
 
 func NewDBModel(dbDriver, dbSource string) (m *DBModel, err error) {
 	m = &DBModel{}
@@ -37,5 +44,18 @@ func (m *DBModel) addUser(username string, password string) (account *core_auth.
 	if has == false {
 		err = errors.New("failed to get account")
 	}
+	token, err := uuid.NewV4()
+	if err != nil {
+		return
+	}
+	_, err = m.db.Insert(&authToken{
+		UserId: account.Id,
+		Token:  token.String(),
+	})
+
+	if err != nil {
+		return
+	}
+
 	return
 }
