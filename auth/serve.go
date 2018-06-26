@@ -6,7 +6,6 @@ import (
 	"net"
 	"fmt"
 	"google.golang.org/grpc"
-
 )
 
 type AuthServer struct {
@@ -21,25 +20,8 @@ func NewAuthServer() (s *AuthServer, err error) {
 	return
 }
 
-func (a *AuthServer) Register(ctx context.Context, request *core_auth.RegisterReq) (account *core_auth.Account, err error) {
-	if err != nil {
-		return
-	}
-
-	user  := core_auth.Account{
-		Username:  "2333",
-		Password:  "666",
-	}
-
-	userInfo, err := a.db.db.Insert(&user)
-	fmt.Println(userInfo, "aaa")
-	fmt.Println(err, "err")
-
-	account = &core_auth.Account{
-		Username:  "cc",
-		Password:  "ccc",
-	}
-
+func (s *AuthServer) Register(ctx context.Context, request *core_auth.RegisterReq) (account *core_auth.Account, err error) {
+	account, err = s.db.addUser(request.Username, request.Password)
 	return
 
 }
@@ -52,8 +34,8 @@ func Run() {
 		fmt.Println("listen to tcp error", err)
 	}
 	s := grpc.NewServer()
-	authServer, err :=  NewAuthServer()
-	if err != nil{
+	authServer, err := NewAuthServer()
+	if err != nil {
 		fmt.Println("new auth server error: ", err)
 	}
 

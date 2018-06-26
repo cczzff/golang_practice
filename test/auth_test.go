@@ -17,7 +17,10 @@ func TestAuthClient(t *testing.T) {
 
 	cli := core_auth.NewAuthServiceClient(conn)
 
-	req := &core_auth.RegisterReq{}
+	req := &core_auth.RegisterReq{
+		Username: "ll",
+		Password: "hahaha",
+	}
 	res, err := cli.Register(context.Background(), req)
 	fmt.Println(res, err)
 }
