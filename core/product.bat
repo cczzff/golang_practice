@@ -1,1 +1,1 @@
-python -m grpc_tools.protoc -IC:\pppp\core -I. --gogofaster_out=plugins=grpc:.   C:\pppp\core\auth\account.proto
+python -m grpc_tools.protoc -IC:\pppp\core -I. -IC:\go_path\src\github.com\grpc-ecosystem\grpc-gateway\protoc-gen-grpc-gateway                --gogofaster_out=plugins=grpc:.   C:\pppp\core\auth\account.proto --grpc-gateway_out=logtostderr=true:.

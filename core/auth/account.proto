@@ -4,6 +4,7 @@ package core.auth;
 
 import "google/protobuf/timestamp.proto";
 import "github.com/gogo/protobuf/gogoproto/gogo.proto";
+import "google/api/annotations.proto";
 
 message Account {
     int64 id = 1;
@@ -21,5 +22,10 @@ message RegisterReq {
 
 service AuthService {
     rpc Register (RegisterReq) returns (Account) {
+        option (google.api.http) = {
+        post: "/v1/example/echo"
+        body: "*"
+    };
+
     }
 }

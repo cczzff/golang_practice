@@ -7,3 +7,6 @@ go get github.com/gogo/protobuf/protoc-gen-gogo
 go get github.com/gogo/protobuf/protoc-gen-gogofaster
 go get github.com/gogo/protobuf/gogoproto
 
+## grpc-gateway
+go get github.com/grpc-ecosystem/grpc-gateway/protoc-gen-grpc-gateway
+go get github.com/grpc-ecosystem/grpc-gateway/protoc-gen-swagger
