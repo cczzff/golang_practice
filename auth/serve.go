@@ -6,6 +6,10 @@ import (
 	"net"
 	"fmt"
 	"google.golang.org/grpc"
+	"github.com/grpc-ecosystem/grpc-gateway/runtime"
+	"flag"
+	"net/http"
+	"golang_practice/util/protoutil"
 )
 
 type AuthServer struct {
@@ -41,6 +45,31 @@ func Run() {
 
 	core_auth.RegisterAuthServiceServer(s, authServer)
 
-	s.Serve(lis)
+	go s.Serve(lis)
+
+
+	ctx := context.Background()
+	ctx, cancel := context.WithCancel(ctx)
+	defer cancel()
+
+	mux := runtime.NewServeMux(runtime.WithMarshalerOption(runtime.MIMEWildcard, &protoutil.JSONPb{OrigName: true}))
+	opts := []grpc.DialOption{grpc.WithInsecure()}
+
+	var (
+		echoEndpoint = flag.String("echo_endpoint", "localhost:8209", "endpoint of YourService")
+	)
+
+
+	err = core_auth.RegisterAuthServiceHandlerFromEndpoint(ctx, mux, *echoEndpoint, opts)
+	if err != nil {
+		fmt.Println("gateway error!: ", err)
+	}
+
+	err = http.ListenAndServe(":8080", mux)
+
+	if err!= nil {
+		fmt.Println("ListenAndServe error!: ", err)
+	}
+
 
 }
