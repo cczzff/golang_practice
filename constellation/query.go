@@ -77,6 +77,7 @@ type (
 	}
 )
 
+// todo https://mholt.github.io/json-to-go/ json 代码自动生成
 func main() {
 	//生成client 参数为默认
 	client := &http.Client{}
