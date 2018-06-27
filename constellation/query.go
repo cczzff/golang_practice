@@ -10,23 +10,23 @@ import (
 
 type (
 	Message struct {
-		Stauts  string `json:"status"`
-		Msg    string   `json:"msg"`
+		Stauts string `json:"status"`
+		Msg    string `json:"msg"`
 		Result Result `json:"result"`
 	}
 
 	Result struct {
-		Astroid   string  `json:"astroid"`
-		Astroname string  `json:"astroname"`
-		Year      Year    `json:"year"`
-		Week      Week	   `json:"week"`
+		Astroid   string   `json:"astroid"`
+		Astroname string   `json:"astroname"`
+		Year      Year     `json:"year"`
+		Week      Week     `json:"week"`
 		Today     Today    `json:"today"`
-		Tomorrow Tomorrow  `json:"tomorrow"`
-		Month     Month  `json:"month"`
+		Tomorrow  Tomorrow `json:"tomorrow"`
+		Month     Month    `json:"month"`
 	}
 
 	Year struct {
-		Date    string  `json:"date"`
+		Date    string `json:"date"`
 		Summary string `json:"summary"`
 		Money   string `json:"money"`
 		Career  string `json:"career"`
@@ -34,7 +34,7 @@ type (
 	}
 
 	Week struct {
-		Date  string `json:"date"`
+		Date   string `json:"date"`
 		Money  string `json:"money"`
 		Career string `json:"career"`
 		Love   string `json:"love"`
@@ -96,13 +96,14 @@ func main() {
 	//处理返回结果
 	response, err := client.Do(req)
 	if err != nil {
-		fmt.Println(" client.Do(req) error: ", err)
+		fmt.Println("client.Do(req) error ", err)
+		panic(err)
 	}
 
 	//返回的状态码
 	status := response.StatusCode
 	if status != 200 {
-		panic(errors.New("GET Fail"))
+		panic(errors.New(" status != 200"))
 	}
 
 	body, err := ioutil.ReadAll(response.Body)
@@ -110,20 +111,15 @@ func main() {
 		fmt.Println("ioutil.ReadAll(response.Body) error ", err)
 		return
 	}
-
+	// 结构体marshal
 	var message Message
-
-	err = json.Unmarshal([]byte(body), &message)
-
+	json.Unmarshal([]byte(body), &message)
 	fmt.Println(message)
-	fmt.Println(err)
 
 	fmt.Println("-------------------------------------------")
-
+	// 字典marshal
 	m := map[string]interface{}{}
-	err = json.Unmarshal([]byte(body), &m)
-
+	json.Unmarshal([]byte(body), &m)
 	fmt.Println(m["result"].(map[string]interface{})["year"].(map[string]interface{})["money"])
-	fmt.Println(err)
 
 }
